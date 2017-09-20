@@ -4,8 +4,9 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtracTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtracTextPlugin({
-	filename: '[name].[contenthash].css',
-	disable: process.env.NODE_ENV === "development"
+	filename: 'style.css',
+	disable: process.env.NODE_ENV === "development",
+	allChunks: true
 });
 
 module.exports = {
@@ -16,6 +17,42 @@ module.exports = {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist')
 	},
+	module: {
+		rules: [
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: 'file-loader'
+			},
+			{
+				test: /\.scss$/,
+				use: extractSass.extract({
+					use: [
+						{
+							loader: 'css-loader',
+							options: {
+								minimize: true
+							}
+						},
+						{
+							loader: 'sass-loader'
+						}
+					],
+					fallback: 'style-loader'
+				})
+			},
+			{
+				test: /\.(jpg|gif|svg|png)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]'
+						}
+					}
+				]
+			},
+		]
+	},
 	plugins: [
 		extractSass,
 		new HTMLWebpackPlugin({
@@ -24,27 +61,5 @@ module.exports = {
 			template: path.resolve(__dirname, 'src/index.html')
 		}),
 		new CleanWebpackPlugin(['dist'])
-	],
-	module: {
-		rules: [
-			{
-				test: /\.(jpg|gif|svg|png)$/,
-				use: ['file-loader']
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/,
-				use: ['file-loader']
-			},
-			{
-				test: /\.scss$/,
-				use: extractSass.extract({
-					use: [
-						'css-loader',
-						'sass-loader'
-					],
-					fallback: 'style-loader'
-				})
-			}
-		]
-	}
+	]
 };

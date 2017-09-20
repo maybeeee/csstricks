@@ -4,17 +4,18 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtracTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtracTextPlugin({
-	filename: 'style.css',
-	disable: process.env.NODE_ENV === "development"
+	filename: 'style/style.css',
+	disable: process.env.NODE_ENV === "development",
+	allChunks: true
 });
 
 module.exports = {
 	entry: {
-		index: './src/main.js'
+		index: './assets/main.js'
 	},
 	output: {
 		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'dist'),
 	},
 	resolve: {
 		alias: {
@@ -35,17 +36,18 @@ module.exports = {
 							loader: 'css-loader',
 							options: {
 								minimize: true,
-
+								sourceMap: true
 							}
 						},
 						{
 							loader: 'sass-loader',
 							options: {
-								includePaths: ['./src/style']
+								sourceMap: true
 							}
 						}
 					],
-					fallback: 'style-loader'
+					fallback: 'style-loader',
+					publicPath: '../'
 				})
 			},
 			{
@@ -77,7 +79,7 @@ module.exports = {
 			minify: {
 				removeComments: true
 			},
-			template: path.resolve(__dirname, 'src/index.html')
+			template: path.resolve(__dirname, 'assets/index.html')
 		}),
 		new CleanWebpackPlugin(['dist'])
 	]

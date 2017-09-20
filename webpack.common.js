@@ -5,8 +5,7 @@ const ExtracTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtracTextPlugin({
 	filename: 'style.css',
-	disable: process.env.NODE_ENV === "development",
-	allChunks: true
+	disable: process.env.NODE_ENV === "development"
 });
 
 module.exports = {
@@ -16,6 +15,11 @@ module.exports = {
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist')
+	},
+	resolve: {
+		alias: {
+			'src': path.resolve(__dirname, './src')
+		}
 	},
 	module: {
 		rules: [
@@ -30,26 +34,38 @@ module.exports = {
 						{
 							loader: 'css-loader',
 							options: {
-								minimize: true
+								minimize: true,
+
 							}
 						},
 						{
-							loader: 'sass-loader'
+							loader: 'sass-loader',
+							options: {
+								includePaths: ['./src/style']
+							}
 						}
 					],
 					fallback: 'style-loader'
 				})
 			},
 			{
-				test: /\.(jpg|gif|svg|png)$/,
+				test: /\.(jpg|png|gif)$/,
 				use: [
 					{
-						loader: 'file-loader',
+						loader:'url-loader',
 						options: {
-							name: '[name].[ext]'
+							limit: 8192,
+							name: 'images/[name]-[hash:8].[ext]'
 						}
 					}
 				]
+			},
+			{
+				test: /\.svg$/,
+				loader: 'file-loader',
+				query: {
+					name: 'images/[name]-[hash:8].[ext]'
+				}
 			},
 		]
 	},
@@ -58,6 +74,9 @@ module.exports = {
 		new HTMLWebpackPlugin({
 			title: 'Css Tricks',
 			filename: 'index.html',
+			minify: {
+				removeComments: true
+			},
 			template: path.resolve(__dirname, 'src/index.html')
 		}),
 		new CleanWebpackPlugin(['dist'])

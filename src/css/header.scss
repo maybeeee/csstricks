@@ -1,0 +1,24 @@
+header {
+	display: flex;
+	position: relative;
+
+	&:after {
+		width: 100%;
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 100;
+		border-bottom: 8px solid rgba(255, 152, 0, 0.5);
+	}
+
+	.logo {
+		width: 35px;
+		height: 35px;
+		margin: 28px auto;
+		flex: 1;
+		background-image: url('../images/logo.png');
+		background-repeat: no-repeat;
+	}
+}
+

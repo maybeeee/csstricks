@@ -1,7 +1,4 @@
-import './css/reset.scss'
-import './css/main.scss';
-
-console.log(1);
+import './style/main.scss';
 
 if (module.hot) {
 	

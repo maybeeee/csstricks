@@ -1,0 +1,92 @@
+// 鼠标滑过时，各个svg分别对应的颜色值。
+$color-map: (
+    videos: #e91e63,
+    almanc: #f44336,
+    gallery: #9c27b0,
+    snippets: #03a9f4,
+    forums: #4caf50,
+    newsletter: #8bc34a,
+    jobs: #bcb04f,
+    guides: #607d8b
+);
+
+.nav {
+    flex: 0 0 100px;
+    float: left;
+    padding-top: 14px;
+    background-color: #000;
+
+    ul:hover {
+        span {
+            transform: translateX(0);
+        }
+        
+        @each $elem, $color in $color-map {
+            #nav-icon-#{$elem} {
+                stroke: $color;
+            }
+        }
+    }
+
+    li {
+        width: 100px;
+        height: 96px;
+        text-align: center;
+        position: relative;
+
+        &.active{
+            background-color: #eee;
+
+            a {
+                background-color: #eee;
+
+                svg {
+                    fill: #eee;
+                    stroke: #000;
+                }
+                
+                span {
+                    color: #000;
+                    transform: translateX(0);
+                }
+
+                &:hover {
+                    transform: translateY(2px);
+                }
+            }
+        }
+ 
+        a {
+            display: inline-block;
+            padding: 17px 0;
+            letter-spacing: 0.04rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+
+            &:hover{
+                transform: translateY(2px);
+            }
+
+            svg {
+                width: 40px;
+                height: 40px;
+                stroke-width: 2;
+                display: block;
+                margin: 0 auto;
+            }
+
+            span {
+                display: block;
+                height: 20px;
+                line-height: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                transform: translateX(-200px);
+                transition: 0.1s;
+                position: relative;
+            }
+        }        
+    }
+}

@@ -54,11 +54,6 @@ header .search-wrapper {
   background-color: #eee;
 }
 
-@media screen and (max-width: 980px) {
-  header .search-wrapper {
-    background-color: #fff;
-  }
-}
 
 
 .search-wrapper .search-text {

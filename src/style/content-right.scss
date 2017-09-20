@@ -1,0 +1,69 @@
+aside {
+    flex: 0 0 300px;
+    padding: 22px 22px 0;
+    background: #eee;
+
+    .front-end-jobs {
+        height: 400px;
+        padding: 22px;
+        background: #fff;
+
+        h2 {
+            font-weight: 700;
+            height: 50px;
+            line-height: 50px;
+            font-size: 24px;
+            text-transform: capitalize;
+        }
+
+        ul {
+            height: 190px;
+
+            li{
+                margin: 10px 0;
+                
+                a {
+                    font-weight: 700;
+                    border-bottom: 2px solid #fff;
+
+                    &:hover {
+                        border-bottom-color: #c5ecfe;
+                    }
+                }
+            }
+        }
+
+        .btn {
+            width: 256px;
+            height: 40px;
+            margin: 10px 0;
+            text-align: center;
+
+            a {
+                display: block;
+                height: 40px;
+                border-radius: 4px;
+                line-height: 40px;
+                font-size: 15px;
+                background-color: #7db1ef;
+                color: #fff;
+                text-transform: uppercase;
+
+                &:hover {
+                    background: #000;
+                }
+            }
+        }
+    }  
+
+    .make-website {
+        margin: 43px 0 43px;
+
+        a {
+            display: block;
+            width: 300px;
+            height: 250px;
+            background: url('../images/make-website.png') no-repeat 0 0;
+        }
+    }
+}

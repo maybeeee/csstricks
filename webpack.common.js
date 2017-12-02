@@ -11,7 +11,7 @@ const extractSass = new ExtracTextPlugin({
 
 module.exports = {
 	entry: {
-		index: './assets/main.js'
+		index: './src/main.js'
 	},
 	output: {
 		filename: '[name].bundle.js',
@@ -23,16 +23,14 @@ module.exports = {
 		}
 	},
 	module: {
-		rules: [
-			{
+		rules: [{
 				test: /\.(woff|woff2|eot|ttf|otf)$/,
 				use: 'file-loader'
 			},
 			{
 				test: /\.scss$/,
 				use: extractSass.extract({
-					use: [
-						{
+					use: [{
 							loader: 'css-loader',
 							options: {
 								minimize: true,
@@ -52,15 +50,13 @@ module.exports = {
 			},
 			{
 				test: /\.(jpg|png|gif)$/,
-				use: [
-					{
-						loader:'url-loader',
-						options: {
-							limit: 8192,
-							name: 'images/[name]-[hash:8].[ext]'
-						}
+				use: [{
+					loader: 'url-loader',
+					options: {
+						limit: 8192,
+						name: 'images/[name]-[hash:8].[ext]'
 					}
-				]
+				}]
 			},
 			{
 				test: /\.svg$/,
@@ -79,7 +75,7 @@ module.exports = {
 			minify: {
 				removeComments: true
 			},
-			template: path.resolve(__dirname, 'assets/index.html')
+			template: path.resolve(__dirname, 'src/index.html')
 		}),
 		new CleanWebpackPlugin(['dist'])
 	]
